@@ -8,6 +8,10 @@ repositories {
     mavenCentral()
 }
 
+war {
+    baseName = 'pik-serwer'
+    version =  '0.1.0'
+}
 
 dependencies {
 
