@@ -28,5 +28,5 @@ dependencies {
 test {
 
 
-    buildDir: 'src/main/webapp/WEB-INF'
+    buildDir = 'src/main/webapp/WEB-INF'
 }
