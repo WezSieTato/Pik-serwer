@@ -34,8 +34,8 @@ public class AppTests {
 
     @Test
     public void simple() throws Exception {
-       /* mockMvc.perform(get("/service/greeting/test"))
+        mockMvc.perform(get("/service/greeting/test"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello test"));*/
+                .andExpect(content().string("Witojcie panocki na moim websajcie! I nie piszta mnie tu: test"));
     }
 }
