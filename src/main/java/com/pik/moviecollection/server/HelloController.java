@@ -11,7 +11,7 @@ public class HelloController {
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public String getGreeting(@PathVariable String name) {
-        String result="Hello "+name;
+        String result="ElKaEs zajebisty jest! Tak samo jak "+name;
         return result;
         //return new ResponseEntity<String>("{value: " + result + "}", HttpStatus.OK);
     }
