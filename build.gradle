@@ -9,7 +9,7 @@ repositories {
 }
 
 war {
-    baseName = 'pik-serwer'
+    baseName = 'pikserwer'
     version =  '0.1.0'
 }
 
