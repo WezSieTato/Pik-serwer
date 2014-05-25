@@ -13,6 +13,12 @@ public class EntityConnection
 
     private static EntityManager entityManager;
     private static EntityManagerFactory emf;
+    private static EntityConnection instance = new EntityConnection();
+
+    public static EntityConnection getInstance() {
+        return instance;
+    }
+    private EntityConnection() {}
 
     public static EntityManager getConnection()
     {
