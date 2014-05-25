@@ -16,7 +16,10 @@ public class LoginDAO {
     }
     private LoginDAO() {}
 
-
+    /**
+     * @return null dla blednych danych
+     *         User dane zalogowanego uzytkownika
+     */
     public static User loginUser(String login, String password) {
 
         EntityManager em = conn.getConnection();
@@ -27,6 +30,7 @@ public class LoginDAO {
         query.setParameter("pass", password);
 
         User result = (User)query.getResultList().get(0);
+        result.setPass("");
 
         conn.closeConnection();
         return result;
