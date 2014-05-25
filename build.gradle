@@ -11,6 +11,7 @@ repositories {
 
 war {
     baseName = 'pikserwer'
+    archiveName = 'pikserwer'
     version =  '0.1.0'
 }
 
