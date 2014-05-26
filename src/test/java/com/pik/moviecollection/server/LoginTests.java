@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration("classpath:rest-service-servlet.xml")
 public class LoginTests {
 
-    private static final String USER_NAME = "Random name test2";
+    private static final String USER_NAME = "Random name";
     private static final String USER_SURNAME = "Random surname";
     private static final String USER_LOGIN = "Random login";
     private static final String USER_PASS = "Random pass";
@@ -44,7 +44,22 @@ public class LoginTests {
         this.mockMvc = webAppContextSetup(this.wac).build();
     }
 
+    @Test
+    public void loginUserLoginOkPassOkTest() {
+        User u = createValidUser();
+        User result = data.loginUser(u.getLogin(), u.getPass());
 
+        Assert.notNull(result, "Nie poprawny login i haslo");
+        deleteUser(u);
+    }
+
+    private User createValidUser() {
+        User user = new User(USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASS);
+        EntityManager em = conn.getConnection();
+        em.persist(user);
+        conn.closeConnection();
+        return user;
+    }
 
     private void deleteUser(User u) {
         EntityManager em = conn.getConnection();
