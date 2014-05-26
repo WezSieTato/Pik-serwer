@@ -35,11 +35,19 @@ public class LoginDAO {
         User result = (User)items.get(0);
         result.setPass("");
 
-        Token token = new Token("super_secret_code", result);
+
+        Token token = new Token(generateToken(result.getUserID()), result);
         em.persist(token);
+
+        //System.out.println("u id: " + result.getUserID());
+        //System.out.println("token id: " + token.getTokenID() + " user from token " + token.getUser().getUserID());
 
         conn.closeConnection();
         return new LoginResult(result, token);
+    }
+
+    private static String generateToken(String id) {
+        return "aasfd";
     }
 
 
