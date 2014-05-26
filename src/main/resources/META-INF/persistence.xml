@@ -14,7 +14,7 @@
             <property name="kundera.client.lookup.class" value="com.impetus.client.mongodb.MongoDBClientFactory" />
             <property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.NonOperationalCacheProvider" />
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-
+            <property name="kundera.annotations.scan.package" value="com.pik.moviecollection.model.orm"/>
         </properties>
     </persistence-unit>
 </persistence>
