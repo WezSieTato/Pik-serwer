@@ -2,8 +2,10 @@ package com.pik.moviecollection.server;
 
 import com.pik.moviecollection.model.datamanegement.EntityConnection;
 import com.pik.moviecollection.model.datamanegement.LoginDAO;
+import com.pik.moviecollection.model.orm.Token;
 import com.pik.moviecollection.model.orm.User;
 import com.pik.moviecollection.model.result.data.LoginResult;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,8 @@ public class LoginTests {
     private static final String USER_LOGIN = "Random login";
     private static final String USER_PASS = "Random pass";
 
+    private User testUser;
+
     private MockMvc mockMvc;
     private static EntityConnection conn = EntityConnection.getInstance();
     private static LoginDAO data = LoginDAO.getInstance();
@@ -43,16 +47,19 @@ public class LoginTests {
     @Before
     public void setup() {
         this.mockMvc = webAppContextSetup(this.wac).build();
+        testUser = createValidUser();
+    }
+
+    @After
+    public void clean() {
+        deleteUser(testUser);
     }
 
     @Test
     public void loginUserLoginOkPassOkTest() {
-        User u = createValidUser();
-        LoginResult result = data.loginUser(u.getLogin(), u.getPass());
-
-        Assert.notNull(result.getUser(), "Nie poprawny login i haslo");
-        Assert.notNull(result.getToken(), "Brak tokena");
-        //deleteUser(u);
+        LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
+        Assert.notNull(result, "Brak uzytkownika o podanym hasle i loginie w bazie");
+        deleteToken(result.getToken());
     }
 
     private User createValidUser() {
@@ -64,9 +71,18 @@ public class LoginTests {
     }
 
     private void deleteUser(User u) {
+        if (u == null) return;
         EntityManager em = conn.getConnection();
         User user = em.find(User.class, u.getUserID());
         em.remove(user);
+        conn.closeConnection();
+    }
+
+    private void deleteToken(Token t) {
+        if (t == null) return;
+        EntityManager em = conn.getConnection();
+        Token token = em.find(Token.class, t.getTokenID());
+        em.remove(token);
         conn.closeConnection();
     }
 
