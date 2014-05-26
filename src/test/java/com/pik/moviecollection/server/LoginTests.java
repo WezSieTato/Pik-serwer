@@ -3,6 +3,7 @@ package com.pik.moviecollection.server;
 import com.pik.moviecollection.model.datamanegement.EntityConnection;
 import com.pik.moviecollection.model.datamanegement.LoginDAO;
 import com.pik.moviecollection.model.orm.User;
+import com.pik.moviecollection.model.result.data.LoginResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,10 +48,11 @@ public class LoginTests {
     @Test
     public void loginUserLoginOkPassOkTest() {
         User u = createValidUser();
-        User result = data.loginUser(u.getLogin(), u.getPass());
+        LoginResult result = data.loginUser(u.getLogin(), u.getPass());
 
-        Assert.notNull(result, "Nie poprawny login i haslo");
-        deleteUser(u);
+        Assert.notNull(result.getUser(), "Nie poprawny login i haslo");
+        Assert.notNull(result.getToken(), "Brak tokena");
+        //deleteUser(u);
     }
 
     private User createValidUser() {
