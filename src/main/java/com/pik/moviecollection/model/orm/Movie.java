@@ -1,15 +1,17 @@
-package com.pik.moviecollection.model.orm; /**
- * Created by Robert on 2014-05-22.
- */
+package com.pik.moviecollection.model.orm;
 
 import javax.persistence.*;
+
+/**
+ * Created by Robert on 2014-05-22.
+ */
 
 @Entity
 @Table(name = "MOVIE", schema = "MovieCollection@kunderapu")
 public class Movie
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy=GenerationType.AUTO)
     @Column(name="MOVIE_ID")
     private String movieID;
 
@@ -22,11 +24,6 @@ public class Movie
     public String getMovieID()
     {
 	return movieID;
-    }
-
-    public void setMovieID(String movieID)
-    {
-	this.movieID = movieID;
     }
 
     public String getTitle()
