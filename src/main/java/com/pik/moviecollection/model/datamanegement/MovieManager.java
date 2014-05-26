@@ -7,5 +7,8 @@ import java.util.Map;
  */
 public interface MovieManager
 {
-    void addMovie(Map<String, String> movieParameters);
+    boolean addMovie(Map<String, String> movieParameters);
+    // boolean edit();
+    // find();
+    boolean deleteMovie(String movieID);
 }

@@ -19,13 +19,22 @@ public class MovieManagerImpl implements MovieManager
 
 
     @Override
-    public void addMovie(Map<String, String> movieParameters)
+    public boolean addMovie(Map<String, String> movieParameters)
     {
 	Movie movie = new Movie();
 	movie.setTitle(movieParameters.get("title"));
 	movie.setCountry(movieParameters.get("country"));
 
 	insertMovie(movie);
+	return true;
+    }
+
+    @Override
+    public boolean deleteMovie(String movieID)
+    {
+	Movie movie = entityManager.find(Movie.class, movieID);
+	entityManager.remove(movie);
+	return true;
     }
 
     private void insertMovie(Movie movie)
