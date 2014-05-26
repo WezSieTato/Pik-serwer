@@ -6,6 +6,7 @@ import com.pik.moviecollection.model.result.data.LoginResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * Created by piotr on 26.05.14.
@@ -30,7 +31,11 @@ public class LoginDAO {
         query.setParameter("login", login);
         query.setParameter("pass", password);
 
-        User result = (User)query.getResultList().get(0);
+        List<User> items = query.getResultList();
+        if (items.isEmpty()) return null;
+        User result = (User)items.get(0);
+
+
         result.setPass("");
 
         Token token = new Token("super_secret_code", result);
