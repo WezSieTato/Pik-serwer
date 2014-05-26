@@ -20,6 +20,14 @@ public class Token {
     @JoinColumn(name="USER_ID")
     private User user;
 
+    public Token(String code, User user) {
+        this.code = code;
+        this.user = user;
+    }
+
+    public Token() {
+    }
+
     public String getTokenID() {
         return tokenID;
     }
