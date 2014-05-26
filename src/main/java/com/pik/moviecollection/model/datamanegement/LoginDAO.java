@@ -1,5 +1,6 @@
 package com.pik.moviecollection.model.datamanegement;
 
+import com.pik.moviecollection.model.orm.Token;
 import com.pik.moviecollection.model.orm.User;
 
 import javax.persistence.EntityManager;
@@ -23,14 +24,16 @@ public class LoginDAO {
     public static User loginUser(String login, String password) {
 
         EntityManager em = conn.getConnection();
-        String queryString = "SELECT u FROM User u " +
-                "WHERE u.login = :login and u.pass = :pass";
+        String queryString = "SELECT u FROM User u WHERE u.login = :login and u.pass = :pass";
         Query query = em.createQuery(queryString);
         query.setParameter("login", login);
         query.setParameter("pass", password);
 
         User result = (User)query.getResultList().get(0);
         result.setPass("");
+
+        Token token = new Token("super_secret_code", result);
+        em.persist(token);
 
         conn.closeConnection();
         return result;
