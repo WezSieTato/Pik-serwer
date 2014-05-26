@@ -33,6 +33,7 @@ public class LoginTests {
     private static final String USER_SURNAME = "Random surname";
     private static final String USER_LOGIN = "Random login";
     private static final String USER_PASS = "Random pass";
+    private static final String WRONG_DATA = "asdf";
 
     private User testUser;
 
@@ -64,7 +65,7 @@ public class LoginTests {
 
     @Test
     public void loginUserLoginOkPassWrongTest() {
-        LoginResult result = data.loginUser(testUser.getLogin(), "asdf");
+        LoginResult result = data.loginUser(testUser.getLogin(), WRONG_DATA);
         Assert.isNull(result);
     }
 
