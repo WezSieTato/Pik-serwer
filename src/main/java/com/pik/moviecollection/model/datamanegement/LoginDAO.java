@@ -24,7 +24,6 @@ public class LoginDAO {
      *         User dane zalogowanego uzytkownika
      */
     public static LoginResult loginUser(String login, String password) {
-
         EntityManager em = conn.getConnection();
         String queryString = "SELECT u FROM User u WHERE u.login = :login and u.pass = :pass";
         Query query = em.createQuery(queryString);
@@ -34,8 +33,6 @@ public class LoginDAO {
         List<User> items = query.getResultList();
         if (items.isEmpty()) return null;
         User result = (User)items.get(0);
-
-
         result.setPass("");
 
         Token token = new Token("super_secret_code", result);
