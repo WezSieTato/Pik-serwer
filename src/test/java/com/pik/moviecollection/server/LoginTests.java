@@ -69,6 +69,12 @@ public class LoginTests {
         Assert.isNull(result);
     }
 
+    @Test
+    public void loginUserLoginWrongPassOkTest() {
+        LoginResult result = data.loginUser(WRONG_DATA, testUser.getPass());
+        Assert.isNull(result);
+    }
+
     private User createValidUser() {
         User user = new User(USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASS);
         EntityManager em = conn.getConnection();
