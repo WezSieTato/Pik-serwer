@@ -19,14 +19,16 @@ public class MovieManagerImpl implements MovieManager
 
 
     @Override
-    public boolean addMovie(Map<String, String> movieParameters)
+    public String addMovie(Map<String, String> movieParameters)
     {
-	Movie movie = new Movie();
-	movie.setTitle(movieParameters.get("title"));
-	movie.setCountry(movieParameters.get("country"));
+	Movie movie = MovieFactory.createMovie(movieParameters);
+	return insertMovie(movie);
+    }
 
-	insertMovie(movie);
-	return true;
+    private String insertMovie(Movie movie)
+    {
+	entityManager.persist(movie);
+	return movie.getMovieID();
     }
 
     @Override
@@ -37,9 +39,5 @@ public class MovieManagerImpl implements MovieManager
 	return true;
     }
 
-    private void insertMovie(Movie movie)
-    {
-	entityManager.persist(movie);
-    }
 
 }
