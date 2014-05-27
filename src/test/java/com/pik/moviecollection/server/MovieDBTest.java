@@ -10,10 +10,12 @@ import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by Robert on 2014-05-25.
@@ -82,4 +84,16 @@ public class MovieDBTest
 	entityManager.persist(movie);
 	return movie.getMovieID();
     }
+
+    @Test
+    public void getMoviesTest()
+    {
+	String movieID = addTestMovieToDatabase();
+
+	List<Movie> movies = movieManager.getMovies(0, 5);
+	assertTrue(movies.size() > 0);
+
+	movieManager.deleteMovie(movieID);
+    }
+
 }
