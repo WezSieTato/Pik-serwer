@@ -1,7 +1,8 @@
 package com.pik.moviecollection.model.result.data;
 
-import com.pik.moviecollection.model.orm.Token;
-import com.pik.moviecollection.model.orm.User;
+
+import com.pik.moviecollection.model.entity.Token;
+import com.pik.moviecollection.model.entity.User;
 
 /**
  * Created by piotr on 26.05.14.

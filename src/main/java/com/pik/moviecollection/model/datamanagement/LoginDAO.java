@@ -1,7 +1,7 @@
-package com.pik.moviecollection.model.datamanegement;
+package com.pik.moviecollection.model.datamanagement;
 
-import com.pik.moviecollection.model.orm.Token;
-import com.pik.moviecollection.model.orm.User;
+import com.pik.moviecollection.model.entity.Token;
+import com.pik.moviecollection.model.entity.User;
 import com.pik.moviecollection.model.result.data.LoginResult;
 
 import javax.persistence.EntityManager;

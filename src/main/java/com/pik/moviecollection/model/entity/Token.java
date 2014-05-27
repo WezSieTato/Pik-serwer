@@ -1,4 +1,4 @@
-package com.pik.moviecollection.model.orm;
+package com.pik.moviecollection.model.entity;
 
 import javax.persistence.*;
 

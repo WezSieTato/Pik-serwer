@@ -1,9 +1,9 @@
 package com.pik.moviecollection.server;
 
-import com.pik.moviecollection.model.datamanegement.EntityConnection;
-import com.pik.moviecollection.model.datamanegement.LoginDAO;
-import com.pik.moviecollection.model.orm.Token;
-import com.pik.moviecollection.model.orm.User;
+import com.pik.moviecollection.model.datamanagement.EntityConnection;
+import com.pik.moviecollection.model.datamanagement.LoginDAO;
+import com.pik.moviecollection.model.entity.Token;
+import com.pik.moviecollection.model.entity.User;
 import com.pik.moviecollection.model.result.data.LoginResult;
 import org.junit.After;
 import org.junit.Before;
