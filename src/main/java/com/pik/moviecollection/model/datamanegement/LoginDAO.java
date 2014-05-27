@@ -47,21 +47,32 @@ public class LoginDAO {
         return new LoginResult(result, token);
     }
 
-    private static String generateToken(String id) {
-        return "aasfd";
-    }
-
     public static boolean validateUser(Token token) {
         EntityManager em = conn.getConnection();
         String queryString = "SELECT t FROM Token t WHERE t.code = :code";
         Query query = em.createQuery(queryString);
         query.setParameter("code", token.getCode());
         //query.setParameter("id", token.getUser().getUserID());
-
         List<Token> items = query.getResultList();
         if (items.isEmpty()) return false;
         return true;
     }
+
+    public static boolean logoutUser(User user) {
+        EntityManager em = conn.getConnection();
+        String queryString = "SELECT t FROM Token t WHERE t.user.userID = :id";
+        Query query = em.createQuery(queryString);
+        query.setParameter("id", user.getUserID());
+        List<Token> items = query.getResultList();
+        conn.closeConnection();
+        if (items.isEmpty()) return false;
+        return true;
+    }
+
+    private static String generateToken(String id) {
+        return "SUPER_SECRET_TOKEN";
+    }
+
 
 
 
