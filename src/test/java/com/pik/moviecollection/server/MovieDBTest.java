@@ -3,7 +3,7 @@ package com.pik.moviecollection.server;
 import com.pik.moviecollection.model.datamanagement.EntityConnection;
 import com.pik.moviecollection.model.datamanagement.MovieManager;
 import com.pik.moviecollection.model.datamanagement.MovieManagerImpl;
-import com.pik.moviecollection.model.orm.Movie;
+import com.pik.moviecollection.model.entity.Movie;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

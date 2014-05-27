@@ -1,6 +1,6 @@
 package com.pik.moviecollection.model.datamanagement;
 
-import com.pik.moviecollection.model.orm.Movie;
+import com.pik.moviecollection.model.entity.Movie;
 
 import javax.persistence.EntityManager;
 import java.util.Map;
