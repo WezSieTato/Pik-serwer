@@ -82,9 +82,15 @@ public class LoginTests {
     }
 
     @Test
-    public void validateValidUserTest() {
+    public void validateValidTokenTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
         Assert.isTrue(data.validateUser(result.getToken()));
+    }
+
+    @Test
+    public void validateNotValidTokenTest() {
+        Token token = new Token(WRONG_DATA, testUser);
+        Assert.isTrue(!data.validateUser(token));
     }
 
 
