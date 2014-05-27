@@ -1,4 +1,4 @@
-package com.pik.moviecollection.model.datamanegement;
+package com.pik.moviecollection.model.datamanagement;
 
 import java.util.Map;
 

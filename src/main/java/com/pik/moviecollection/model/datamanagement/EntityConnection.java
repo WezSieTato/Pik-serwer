@@ -1,4 +1,4 @@
-package com.pik.moviecollection.model.datamanegement;
+package com.pik.moviecollection.model.datamanagement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

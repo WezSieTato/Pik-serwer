@@ -1,8 +1,8 @@
 package com.pik.moviecollection.server;
 
-import com.pik.moviecollection.model.datamanegement.EntityConnection;
-import com.pik.moviecollection.model.datamanegement.MovieManager;
-import com.pik.moviecollection.model.datamanegement.MovieManagerImpl;
+import com.pik.moviecollection.model.datamanagement.EntityConnection;
+import com.pik.moviecollection.model.datamanagement.MovieManager;
+import com.pik.moviecollection.model.datamanagement.MovieManagerImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
