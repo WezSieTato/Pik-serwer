@@ -56,14 +56,12 @@ public class LoginTests {
         deleteUser(testUser);
     }
 
-    /*
     @Test
     public void loginUserLoginOkPassOkTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
         Assert.notNull(result, "Brak uzytkownika o podanym hasle i loginie w bazie");
         deleteToken(result.getToken());
     }
-    */
 
     @Test
     public void loginUserLoginOkPassWrongTest() {
@@ -82,6 +80,13 @@ public class LoginTests {
         LoginResult result = data.loginUser(WRONG_DATA, WRONG_DATA);
         Assert.isNull(result);
     }
+
+    @Test
+    public void validateValidUserTest() {
+        LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
+        Assert.isTrue(data.validateUser(result.getToken()));
+    }
+
 
     private User createValidUser() {
         User user = new User(USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASS);
