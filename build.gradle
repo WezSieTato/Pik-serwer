@@ -34,5 +34,4 @@ test {
     testLogging {
         events 'started', 'passed'
     }
-    return 0
 }
