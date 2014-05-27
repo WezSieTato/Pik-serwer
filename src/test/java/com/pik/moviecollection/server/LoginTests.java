@@ -93,6 +93,12 @@ public class LoginTests {
         Assert.isTrue(!data.validateUser(token));
     }
 
+    /*
+    @Test
+    public void logoutValidUserTest() {
+        Assert.isTrue(data.logoutUser(testUser));
+    }
+    */
 
     private User createValidUser() {
         User user = new User(USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASS);
@@ -117,6 +123,4 @@ public class LoginTests {
         em.remove(token);
         conn.closeConnection();
     }
-
-
 }
