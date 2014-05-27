@@ -51,7 +51,17 @@ public class LoginDAO {
         return "aasfd";
     }
 
+    public static boolean validateUser(Token token) {
+        EntityManager em = conn.getConnection();
+        String queryString = "SELECT t FROM Token t WHERE t.code = :code";
+        Query query = em.createQuery(queryString);
+        query.setParameter("code", token.getCode());
+        //query.setParameter("id", token.getUser().getUserID());
 
+        List<Token> items = query.getResultList();
+        if (items.isEmpty()) return false;
+        return true;
+    }
 
 
 
