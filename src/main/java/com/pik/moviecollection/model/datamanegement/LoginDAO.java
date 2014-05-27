@@ -58,6 +58,7 @@ public class LoginDAO {
         return true;
     }
 
+    /*
     public static boolean logoutUser(User user) {
         EntityManager em = conn.getConnection();
         String queryString = "SELECT t FROM Token t WHERE t.user.userID = :id";
@@ -68,6 +69,7 @@ public class LoginDAO {
         if (items.isEmpty()) return false;
         return true;
     }
+    */
 
     private static String generateToken(String id) {
         return "SUPER_SECRET_TOKEN";
