@@ -23,6 +23,7 @@ public class LoginDAO {
      * @return null dla blednych danych
      *         User dane zalogowanego uzytkownika
      */
+    @SuppressWarnings("unchecked")
     public static LoginResult loginUser(String login, String password) {
         EntityManager em = conn.getConnection();
         String queryString = "SELECT u FROM User u WHERE u.login = :login and u.pass = :pass";
