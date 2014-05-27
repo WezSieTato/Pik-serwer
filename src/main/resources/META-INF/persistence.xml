@@ -5,16 +5,16 @@
              version="2.0">
     <persistence-unit name="kunderapu">
         <provider>com.impetus.kundera.KunderaPersistence</provider>
-
+        <class>com.pik.moviecollection.model.orm.User</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="kundera.nodes" value="127.0.0.1" />
             <property name="kundera.port" value="27017" />
             <property name="kundera.keyspace" value="MovieCollection" />
             <property name="kundera.dialect" value="mongodb" />
+            <property name="kundera.client" value="com.impetus.client.MongoDBClient" />
             <property name="kundera.client.lookup.class" value="com.impetus.client.mongodb.MongoDBClientFactory" />
-            <property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.NonOperationalCacheProvider" />
-            <property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-            <property name="kundera.annotations.scan.package" value="com.pik.moviecollection.model.orm"/>
         </properties>
+
     </persistence-unit>
 </persistence>
