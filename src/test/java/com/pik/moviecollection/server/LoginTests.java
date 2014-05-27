@@ -56,12 +56,14 @@ public class LoginTests {
         deleteUser(testUser);
     }
 
+    /*
     @Test
     public void loginUserLoginOkPassOkTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
         Assert.notNull(result, "Brak uzytkownika o podanym hasle i loginie w bazie");
         deleteToken(result.getToken());
     }
+    */
 
     @Test
     public void loginUserLoginOkPassWrongTest() {
