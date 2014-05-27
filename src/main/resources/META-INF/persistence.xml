@@ -6,6 +6,7 @@
     <persistence-unit name="kunderapu">
         <provider>com.impetus.kundera.KunderaPersistence</provider>
         <class>com.pik.moviecollection.model.orm.User</class>
+        <class>com.pik.moviecollection.model.orm.Token</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="kundera.nodes" value="127.0.0.1" />
