@@ -1,8 +1,7 @@
 package com.pik.moviecollection.server;
 
-import com.pik.moviecollection.model.datamanagement.EntityConnection;
-import com.pik.moviecollection.model.datamanagement.MovieManager;
-import com.pik.moviecollection.model.datamanagement.MovieManagerImpl;
+import com.pik.moviecollection.model.datamanagement.*;
+import com.pik.moviecollection.model.entity.Category;
 import com.pik.moviecollection.model.entity.Movie;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +17,7 @@ import static junit.framework.Assert.*;
  */
 public class MovieDBTest
 {
+    private CategoryManager categoryManager;
     private MovieManager movieManager;
     private EntityManager entityManager;
 
@@ -26,6 +26,7 @@ public class MovieDBTest
     {
 	entityManager = EntityConnection.getConnection();
 	movieManager = new MovieManagerImpl(entityManager);
+	categoryManager = new CategoryManagerImpl(entityManager);
     }
 
     @After
@@ -70,7 +71,9 @@ public class MovieDBTest
     private String addTestMovieToDatabase()
     {
 	Movie movie = new Movie();
-	movie.setTitle("title");
+	movie.setTitle("aaaaaaaaa");
+	Category category = categoryManager.getCategoryByName("there is no category with this name");
+	movie.setCategory(category);
 
 	entityManager.persist(movie);
 	return movie.getMovieID();

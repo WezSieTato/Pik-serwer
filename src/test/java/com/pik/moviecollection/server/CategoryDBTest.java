@@ -37,31 +37,45 @@ public class CategoryDBTest
     @Test
     public void getCategoriesTest()
     {
-	String categoryID = addTestCategoryToDatabase();
+	Category category  = addTestCategoryToDatabase();
+	String categoryID = category.getCategoryID();
 
 	List<Category> categories = categoryManager.getCategories();
 	assertTrue(categories.size() > 0);
 
-	Category category = entityManager.find(Category.class, categoryID);
+	category = entityManager.find(Category.class, categoryID);
 	entityManager.remove(category);
     }
 
-    private String addTestCategoryToDatabase()
+    @Test
+    public void getCategoryByName()
+    {
+	Category category  = addTestCategoryToDatabase();
+	String categoryName = category.getName();
+
+	Category categoryFromManager = categoryManager.getCategoryByName(categoryName);
+	assertEquals(category.getCategoryID(), categoryFromManager.getCategoryID());
+
+	entityManager.remove(category);
+    }
+
+    private Category addTestCategoryToDatabase()
     {
 	Category category = new Category();
-	category.setName("akcja");
+	category.setName("unique category");
 
 	entityManager.persist(category);
-	return category.getCategoryID();
+	return category;
     }
 
     @Test
     public void canDeleteCategory()
     {
-	String categoryName = addTestCategoryToDatabase();
+	Category category  = addTestCategoryToDatabase();
+	String categoryID = category.getCategoryID();
 
-	categoryManager.deleteCategory(categoryName);
-	Category category = entityManager.find(Category.class, categoryName);
+	categoryManager.deleteCategory(categoryID);
+	category = entityManager.find(Category.class, categoryID);
 
 	assertNull(category);
     }
