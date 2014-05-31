@@ -1,8 +1,7 @@
 package com.pik.moviecollection.server;
 
-import com.pik.moviecollection.model.datamanagement.EntityConnection;
-import com.pik.moviecollection.model.datamanagement.MovieManager;
-import com.pik.moviecollection.model.datamanagement.MovieManagerImpl;
+import com.pik.moviecollection.model.datamanagement.*;
+import com.pik.moviecollection.model.entity.Category;
 import com.pik.moviecollection.model.entity.Movie;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,18 +27,20 @@ public class HelloController {
 
     private void addTestData()
     {
+	EntityManager connection = EntityConnection.getConnection();
+	MovieManager movieManager = new MovieManagerImpl(connection);
+	CategoryManager categoryManager = new CategoryManagerImpl(connection);
+
 	Movie movie = new Movie();
 	movie.setTitle("PIK");
 	movie.setCountry("PL");
-
-	EntityManager connection = EntityConnection.getConnection();
-	MovieManager movieManager = new MovieManagerImpl(connection);
+	Category category = categoryManager.getCategoryByName("akcja");
+	movie.setCategory(category);
 
 	movieManager.addMovie(movie);
 
 	movie = new Movie();
 	movie.setTitle("film");
-	movie.setCountry("EN");
 
 	movieManager.addMovie(movie);
 
