@@ -10,6 +10,7 @@ import java.util.List;
 public interface CategoryManager
 {
     List<Category> getCategories();
+    Category getCategoryByName(String name);
     String addCategory(Category category);
     boolean deleteCategory(String categoryName);
 }

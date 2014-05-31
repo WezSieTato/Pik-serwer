@@ -3,6 +3,8 @@ package com.pik.moviecollection.model.datamanagement;
 import com.pik.moviecollection.model.entity.Category;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,22 @@ public class CategoryManagerImpl implements CategoryManager
 	}
 
 	return categories;
+    }
+
+    @Override
+    public Category getCategoryByName(String name)
+    {
+	Query query = entityManager.createQuery("select c.name from Category c where c.name = :name");
+	query.setParameter("name", name);
+	Category category = null;
+	try
+	{
+	    category = (Category) query.getSingleResult();
+	}
+	catch (NoResultException | NonUniqueResultException ignored)
+	{
+	}
+	return category;
     }
 
     @Override
