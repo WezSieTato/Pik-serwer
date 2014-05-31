@@ -21,8 +21,8 @@ public class Movie
     @Column(name = "COUNTRY")
     private String country;
 
-    @Column(name = "CATEGORY")
-    private String category;
+    @ManyToOne
+    private Category category;
 
 
     public String getMovieID()
@@ -50,12 +50,12 @@ public class Movie
 	this.country = country;
     }
 
-    public String getCategory()
+    public Category getCategory()
     {
 	return category;
     }
 
-    public void setCategory(String category)
+    public void setCategory(Category category)
     {
 	this.category = category;
     }
