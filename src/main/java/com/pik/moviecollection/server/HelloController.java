@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -30,20 +28,20 @@ public class HelloController {
 
     private void addTestData()
     {
-	Map<String, String> movieParameters = new HashMap<>();
-	movieParameters.put("title","PIK");
-	movieParameters.put("country","PL");
+	Movie movie = new Movie();
+	movie.setTitle("PIK");
+	movie.setCountry("PL");
 
 	EntityManager connection = EntityConnection.getConnection();
 	MovieManager movieManager = new MovieManagerImpl(connection);
 
-	movieManager.addMovie(movieParameters);
+	movieManager.addMovie(movie);
 
-	movieParameters = new HashMap<>();
-	movieParameters.put("title","film");
-	movieParameters.put("country","EN");
+	movie = new Movie();
+	movie.setTitle("film");
+	movie.setCountry("EN");
 
-	movieManager.addMovie(movieParameters);
+	movieManager.addMovie(movie);
 
 	EntityConnection.closeConnection();
     }

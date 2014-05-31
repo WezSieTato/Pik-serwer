@@ -9,13 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 /**
  * Created by Robert on 2014-05-25.
@@ -41,22 +37,22 @@ public class MovieDBTest
     @Test
     public void canInsertMovie()
     {
-	Map<String, String> movieParameters = prepareDataToInsert();
-	String movieID = movieManager.addMovie(movieParameters);
+	Movie movie = prepareDataToInsert();
+	String movieID = movieManager.addMovie(movie);
 
-	Movie movie = entityManager.find(Movie.class, movieID);
+	movie = entityManager.find(Movie.class, movieID);
 	assertNotNull(movie);
 
 	removeMovieAfterInsertTest(movie);
     }
 
-    private Map<String, String> prepareDataToInsert()
+    private Movie prepareDataToInsert()
     {
-	Map<String, String> movieParameters = new HashMap<>();
-	movieParameters.put("title","PIK");
-	movieParameters.put("country","PL");
+	Movie movie = new Movie();
+	movie.setTitle("PIK");
+	movie.setCountry("PL");
 
-	return movieParameters;
+	return movie;
     }
 
     private void removeMovieAfterInsertTest(Movie movie)
