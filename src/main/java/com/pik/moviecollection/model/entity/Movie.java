@@ -21,6 +21,10 @@ public class Movie
     @Column(name = "COUNTRY")
     private String country;
 
+    @Column(name = "CATEGORY")
+    private String category;
+
+
     public String getMovieID()
     {
 	return movieID;
@@ -44,5 +48,15 @@ public class Movie
     public void setCountry(String country)
     {
 	this.country = country;
+    }
+
+    public String getCategory()
+    {
+	return category;
+    }
+
+    public void setCategory(String category)
+    {
+	this.category = category;
     }
 }

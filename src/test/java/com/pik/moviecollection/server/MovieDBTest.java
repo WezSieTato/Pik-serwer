@@ -43,7 +43,7 @@ public class MovieDBTest
 	movie = entityManager.find(Movie.class, movieID);
 	assertNotNull(movie);
 
-	removeMovieAfterInsertTest(movie);
+	entityManager.remove(movie);
     }
 
     private Movie prepareDataToInsert()
@@ -53,11 +53,6 @@ public class MovieDBTest
 	movie.setCountry("PL");
 
 	return movie;
-    }
-
-    private void removeMovieAfterInsertTest(Movie movie)
-    {
-	entityManager.remove(movie);
     }
 
 
@@ -89,7 +84,7 @@ public class MovieDBTest
 	List<Movie> movies = movieManager.getMovies(0, 5);
 	assertTrue(movies.size() > 0);
 
-	movieManager.deleteMovie(movieID);
+	Movie movie = entityManager.find(Movie.class, movieID);
+	entityManager.remove(movie);
     }
-
 }
