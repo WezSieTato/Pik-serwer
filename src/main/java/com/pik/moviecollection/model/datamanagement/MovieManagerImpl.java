@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Robert on 2014-05-24.
@@ -21,13 +20,7 @@ public class MovieManagerImpl implements MovieManager
     }
 
     @Override
-    public String addMovie(Map<String, String> movieParameters)
-    {
-	Movie movie = MovieFactory.createMovie(movieParameters);
-	return insertMovie(movie);
-    }
-
-    private String insertMovie(Movie movie)
+    public String addMovie(Movie movie)
     {
 	entityManager.persist(movie);
 	return movie.getMovieID();

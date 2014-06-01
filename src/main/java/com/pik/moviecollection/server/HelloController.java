@@ -1,16 +1,13 @@
 package com.pik.moviecollection.server;
 
-import com.pik.moviecollection.model.datamanagement.EntityConnection;
-import com.pik.moviecollection.model.datamanagement.MovieManager;
-import com.pik.moviecollection.model.datamanagement.MovieManagerImpl;
+import com.pik.moviecollection.model.datamanagement.*;
+import com.pik.moviecollection.model.entity.Category;
 import com.pik.moviecollection.model.entity.Movie;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -30,20 +27,22 @@ public class HelloController {
 
     private void addTestData()
     {
-	Map<String, String> movieParameters = new HashMap<>();
-	movieParameters.put("title","PIK");
-	movieParameters.put("country","PL");
-
 	EntityManager connection = EntityConnection.getConnection();
 	MovieManager movieManager = new MovieManagerImpl(connection);
+	CategoryManager categoryManager = new CategoryManagerImpl(connection);
 
-	movieManager.addMovie(movieParameters);
+	Movie movie = new Movie();
+	movie.setTitle("PIK");
+	movie.setCountry("PL");
+	Category category = categoryManager.getCategoryByName("akcja");
+	movie.setCategory(category);
 
-	movieParameters = new HashMap<>();
-	movieParameters.put("title","film");
-	movieParameters.put("country","EN");
+	movieManager.addMovie(movie);
 
-	movieManager.addMovie(movieParameters);
+	movie = new Movie();
+	movie.setTitle("film");
+
+	movieManager.addMovie(movie);
 
 	EntityConnection.closeConnection();
     }

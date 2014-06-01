@@ -1,27 +1,23 @@
 package com.pik.moviecollection.server;
 
-import com.pik.moviecollection.model.datamanagement.EntityConnection;
-import com.pik.moviecollection.model.datamanagement.MovieManager;
-import com.pik.moviecollection.model.datamanagement.MovieManagerImpl;
+import com.pik.moviecollection.model.datamanagement.*;
+import com.pik.moviecollection.model.entity.Category;
 import com.pik.moviecollection.model.entity.Movie;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 /**
  * Created by Robert on 2014-05-25.
  */
 public class MovieDBTest
 {
+    private CategoryManager categoryManager;
     private MovieManager movieManager;
     private EntityManager entityManager;
 
@@ -30,6 +26,7 @@ public class MovieDBTest
     {
 	entityManager = EntityConnection.getConnection();
 	movieManager = new MovieManagerImpl(entityManager);
+	categoryManager = new CategoryManagerImpl(entityManager);
     }
 
     @After
@@ -41,27 +38,22 @@ public class MovieDBTest
     @Test
     public void canInsertMovie()
     {
-	Map<String, String> movieParameters = prepareDataToInsert();
-	String movieID = movieManager.addMovie(movieParameters);
+	Movie movie = prepareDataToInsert();
+	String movieID = movieManager.addMovie(movie);
 
-	Movie movie = entityManager.find(Movie.class, movieID);
+	movie = entityManager.find(Movie.class, movieID);
 	assertNotNull(movie);
 
-	removeMovieAfterInsertTest(movie);
-    }
-
-    private Map<String, String> prepareDataToInsert()
-    {
-	Map<String, String> movieParameters = new HashMap<>();
-	movieParameters.put("title","PIK");
-	movieParameters.put("country","PL");
-
-	return movieParameters;
-    }
-
-    private void removeMovieAfterInsertTest(Movie movie)
-    {
 	entityManager.remove(movie);
+    }
+
+    private Movie prepareDataToInsert()
+    {
+	Movie movie = new Movie();
+	movie.setTitle("PIK");
+	movie.setCountry("PL");
+
+	return movie;
     }
 
 
@@ -79,7 +71,9 @@ public class MovieDBTest
     private String addTestMovieToDatabase()
     {
 	Movie movie = new Movie();
-	movie.setTitle("title");
+	movie.setTitle("aaaaaaaaa");
+	Category category = categoryManager.getCategoryByName("there is no category with this name");
+	movie.setCategory(category);
 
 	entityManager.persist(movie);
 	return movie.getMovieID();
@@ -93,7 +87,7 @@ public class MovieDBTest
 	List<Movie> movies = movieManager.getMovies(0, 5);
 	assertTrue(movies.size() > 0);
 
-	movieManager.deleteMovie(movieID);
+	Movie movie = entityManager.find(Movie.class, movieID);
+	entityManager.remove(movie);
     }
-
 }
