@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.*;
 
@@ -20,6 +22,9 @@ public class MovieDBTest
     private CategoryManager categoryManager;
     private MovieManager movieManager;
     private EntityManager entityManager;
+    protected final String MOVIE_TITLE = "title";
+    protected final String MOVIE_COUNTRY = "PL";
+    protected final String MOVIE_CATEGORY = "action";
 
     @Before
     public void setup()
@@ -50,8 +55,8 @@ public class MovieDBTest
     private Movie prepareDataToInsert()
     {
 	Movie movie = new Movie();
-	movie.setTitle("PIK");
-	movie.setCountry("PL");
+	movie.setTitle(MOVIE_TITLE);
+	movie.setCountry(MOVIE_COUNTRY);
 
 	return movie;
     }
@@ -71,8 +76,8 @@ public class MovieDBTest
     private String addTestMovieToDatabase()
     {
 	Movie movie = new Movie();
-	movie.setTitle("aaaaaaaaa");
-	Category category = categoryManager.getCategoryByName("there is no category with this name");
+	movie.setTitle(MOVIE_TITLE);
+	Category category = categoryManager.getCategoryByName(MOVIE_CATEGORY);
 	movie.setCategory(category);
 
 	entityManager.persist(movie);
@@ -86,6 +91,22 @@ public class MovieDBTest
 
 	List<Movie> movies = movieManager.getMovies(0, 5);
 	assertTrue(movies.size() > 0);
+
+	Movie movie = entityManager.find(Movie.class, movieID);
+	entityManager.remove(movie);
+    }
+
+
+    @Test
+    public void getFilteredMoviesTest()
+    {
+	String movieID = addTestMovieToDatabase();
+	Map<MovieAttribute, String> movieAttributeStringMap = new HashMap<>();
+	movieAttributeStringMap.put(MovieAttribute.TITLE, MOVIE_TITLE);
+	movieAttributeStringMap.put(MovieAttribute.CATEGORY, MOVIE_CATEGORY);
+
+	List<Movie> movies = movieManager.getMovies(movieAttributeStringMap, 0, 10);
+	assertTrue(movies.size() >= 0);
 
 	Movie movie = entityManager.find(Movie.class, movieID);
 	entityManager.remove(movie);
