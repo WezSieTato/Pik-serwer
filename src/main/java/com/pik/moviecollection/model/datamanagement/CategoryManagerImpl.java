@@ -5,8 +5,7 @@ import com.pik.moviecollection.model.entity.Category;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
-import javax.persistence.Query;
-import java.util.ArrayList;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -24,27 +23,21 @@ public class CategoryManagerImpl implements CategoryManager
     @Override
     public List<Category> getCategories()
     {
-	List<Category> categories = new ArrayList<>();
-	Query query = entityManager.createQuery("select c from Category c");
-	List<?> categoriesList = query.getResultList();
-
-	for (Object category: categoriesList)
-	{
-	    categories.add((Category)category);
-	}
-
-	return categories;
+	String queryString = "select c from Category c";
+	TypedQuery<Category> query = entityManager.createQuery(queryString, Category.class);
+	return query.getResultList();
     }
 
     @Override
     public Category getCategoryByName(String name)
     {
-	Query query = entityManager.createQuery("select c.name from Category c where c.name = :name");
+	String queryString = "select c from Category c where c.name = :name";
+	TypedQuery<Category> query = entityManager.createQuery(queryString, Category.class);
 	query.setParameter("name", name);
 	Category category = null;
 	try
 	{
-	    category = (Category) query.getSingleResult();
+	    category = query.getSingleResult();
 	}
 	catch (NoResultException | NonUniqueResultException ignored)
 	{
@@ -56,7 +49,7 @@ public class CategoryManagerImpl implements CategoryManager
     public String addCategory(Category category)
     {
 	entityManager.persist(category);
-	return category.getCategoryID();
+	return category.getName();
     }
 
     @Override
