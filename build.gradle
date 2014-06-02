@@ -6,6 +6,9 @@ version = '1.0'
 
 repositories {
     mavenCentral()
+    maven { url "http://mvn.riptano.com/content/repositories/public"}
+    maven { url "https://oss.sonatype.org/content/repositories/releases" }
+    maven { url "http://kundera.googlecode.com/svn/maven2/maven-missing-resources" }
 }
 
 war {
