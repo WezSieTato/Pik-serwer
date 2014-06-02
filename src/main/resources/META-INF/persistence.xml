@@ -11,7 +11,7 @@
         <class>com.pik.moviecollection.model.entity.Token</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="kundera.nodes" value="localhost" />
+            <property name="kundera.nodes" value="127.0.0.1" />
             <property name="kundera.port" value="27017" />
             <property name="kundera.keyspace" value="MovieCollection" />
             <property name="kundera.dialect" value="mongodb" />
