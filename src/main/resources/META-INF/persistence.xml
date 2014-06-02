@@ -15,6 +15,7 @@
             <property name="kundera.port" value="27017" />
             <property name="kundera.keyspace" value="MovieCollection" />
             <property name="kundera.dialect" value="mongodb" />
+            <property name="kundera.client" value="com.impetus.client.MongoDBClient" />
             <property name="kundera.client.lookup.class" value="com.impetus.client.mongodb.MongoDBClientFactory" />
         </properties>
 
