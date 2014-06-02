@@ -14,6 +14,10 @@ war {
     version =  '0.1.0'
 }
 
+configurations {
+    providedRuntime
+}
+
 dependencies {
 
     compile group: 'org.springframework', name: 'spring-core', version: '4.0.0.RELEASE'
