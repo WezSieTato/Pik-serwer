@@ -19,10 +19,16 @@ public class HelloController {
     public String getGreeting(@PathVariable String name) {
         String result="Witojcie panocki na moim websajcie! I nie piszta mnie tu: "+name;
 	//addTestData();
-	result = getMovies(result);
+
+        result = getMovies(result);
 
 	return result;
         //return new ResponseEntity<String>("{value: " + result + "}", HttpStatus.OK);
+    }
+
+    @RequestMapping("/getVersion")
+    public String getVersion() {
+        return "1.0";
     }
 
     private void addTestData()
