@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/service/greeting")
 @ResponseStatus(HttpStatus.OK)
