@@ -18,8 +18,8 @@ public class HelloController {
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public String getGreeting(@PathVariable String name) {
         String result="Witojcie panocki na moim websajcie! I nie piszta mnie tu: "+name;
-	addTestData();
-	//result = getMovies(result);
+	//addTestData();
+	result = getMovies(result);
 
 	return result;
         //return new ResponseEntity<String>("{value: " + result + "}", HttpStatus.OK);
