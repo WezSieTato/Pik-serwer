@@ -25,10 +25,6 @@ public class HelloController {
         //return new ResponseEntity<String>("{value: " + result + "}", HttpStatus.OK);
     }
 
-    private void dummy() {
-        
-    }
-
     private void addTestData()
     {
 	EntityManager connection = EntityConnection.getConnection();
