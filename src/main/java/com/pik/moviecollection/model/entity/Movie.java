@@ -22,10 +22,12 @@ public class Movie
     @Column(name = "COUNTRY")
     private String country;
 
+    @Column(name = "NAME")
+    private int year;
+
     @ManyToOne
     @JoinColumn(name="CATEGORY")
     private Category category;
-
 
     public String getMovieID()
     {
@@ -60,5 +62,15 @@ public class Movie
     public void setCategory(Category category)
     {
 	this.category = category;
+    }
+
+    public int getYear()
+    {
+	return year;
+    }
+
+    public void setYear(int year)
+    {
+	this.year = year;
     }
 }
