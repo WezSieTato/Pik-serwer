@@ -16,6 +16,7 @@ public class SearchMovieManager
     private boolean isTitle;
     private boolean isCountry;
     private boolean isCategory;
+    private boolean isYear;
 
     public SearchMovieManager(EntityManager entityManager)
     {
@@ -37,26 +38,6 @@ public class SearchMovieManager
 	query.setMaxResults(maxResults);
 	return query;
     }
-
-    /* Proba Criteria API - konczy sie wyjatkiem
-    java.lang.NullPointerException
-	at com.impetus.kundera.query.KunderaQuery.initEntityClass(KunderaQuery.java:394)
-	at com.impetus.kundera.query.KunderaQuery.postParsingInit(KunderaQuery.java:357)
-	at com.impetus.kundera.query.QueryResolver.getQueryImplementation(QueryResolver.java:80)
-	...
-
-    @Override
-    public List<Movie> getMovies(Map<MovieAttribute, String> searchParameters, int startIndex, int amount)
-    {
-	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-	CriteriaQuery<Movie> criteriaQuery = criteriaBuilder.createQuery(Movie.class);
-	Root<Movie> p = criteriaQuery.from(Movie.class);
-	criteriaQuery.select(p);
-
-	TypedQuery<Movie> q = entityManager.createQuery(criteriaQuery);
-	return q.getResultList();
-    }
-    */
 
     public List<Movie> getMovies(Map<MovieAttribute, String> searchParameters, int startPosition, int maxResults)
     {
@@ -82,6 +63,11 @@ public class SearchMovieManager
 	    queryStringBuilder.append("m.country = :country and ");
 	    isCountry = true;
 	}
+	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.YEAR)))
+	{
+	    queryStringBuilder.append("m.year = :year and ");
+	    isYear = true;
+	}
 	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.CATEGORY)))
 	{
 	    queryStringBuilder.append("m.category = :category ");
@@ -98,7 +84,7 @@ public class SearchMovieManager
 	queryStringBuilder.append(" order by m.title");
 	String stringQuery = queryStringBuilder.toString();
 
-	if (!isTitle && !isCountry && !isCategory)
+	if (!isTitle && !isCountry && !isCategory && !isYear)
 	{
 	    stringQuery = stringQuery.replace("where", "");
 	}
@@ -120,9 +106,15 @@ public class SearchMovieManager
 	{
 	    query.setParameter("category", searchParameters.get(MovieAttribute.CATEGORY));
 	}
+	if (isYear)
+	{
+	    int year = Integer.parseInt(searchParameters.get(MovieAttribute.YEAR));
+	    query.setParameter("year", year);
+	}
 	isTitle = false;
 	isCountry = false;
 	isCategory = false;
+	isYear = false;
     }
 
     private boolean isSearchParameterCorrect(String parameter)

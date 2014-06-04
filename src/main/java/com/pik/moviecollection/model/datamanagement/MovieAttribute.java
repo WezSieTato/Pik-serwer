@@ -7,5 +7,6 @@ public enum MovieAttribute
 {
     TITLE,
     COUNTRY,
-    CATEGORY
+    CATEGORY,
+    YEAR
 }
