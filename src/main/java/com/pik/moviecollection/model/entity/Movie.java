@@ -22,6 +22,9 @@ public class Movie
     @Column(name = "COUNTRY")
     private String country;
 
+    @Column(name = "YEAR")
+    private int year;
+
     @ManyToOne
     @JoinColumn(name="CATEGORY")
     private Category category;
@@ -62,3 +65,13 @@ public class Movie
 	this.category = category;
     }
 
+    public int getYear()
+    {
+	return year;
+    }
+
+    public void setYear(int year)
+    {
+	this.year = year;
+    }
+}
