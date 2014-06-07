@@ -38,26 +38,6 @@ public class SearchMovieManager
 	return query;
     }
 
-    /* Proba Criteria API - konczy sie wyjatkiem
-    java.lang.NullPointerException
-	at com.impetus.kundera.query.KunderaQuery.initEntityClass(KunderaQuery.java:394)
-	at com.impetus.kundera.query.KunderaQuery.postParsingInit(KunderaQuery.java:357)
-	at com.impetus.kundera.query.QueryResolver.getQueryImplementation(QueryResolver.java:80)
-	...
-
-    @Override
-    public List<Movie> getMovies(Map<MovieAttribute, String> searchParameters, int startIndex, int amount)
-    {
-	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-	CriteriaQuery<Movie> criteriaQuery = criteriaBuilder.createQuery(Movie.class);
-	Root<Movie> p = criteriaQuery.from(Movie.class);
-	criteriaQuery.select(p);
-
-	TypedQuery<Movie> q = entityManager.createQuery(criteriaQuery);
-	return q.getResultList();
-    }
-    */
-
     public List<Movie> getMovies(Map<MovieAttribute, String> searchParameters, int startPosition, int maxResults)
     {
 	String stringQuery = getFilteredSearchQueryString(searchParameters);
