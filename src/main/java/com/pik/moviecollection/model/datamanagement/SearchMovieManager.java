@@ -16,6 +16,7 @@ public class SearchMovieManager
     private boolean isTitle;
     private boolean isCountry;
     private boolean isCategory;
+    private boolean isYear;
 
     public SearchMovieManager(EntityManager entityManager)
     {
@@ -62,6 +63,11 @@ public class SearchMovieManager
 	    queryStringBuilder.append("m.country = :country and ");
 	    isCountry = true;
 	}
+	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.YEAR)))
+	{
+	    queryStringBuilder.append("m.year = :year and ");
+	    isYear = true;
+	}
 	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.CATEGORY)))
 	{
 	    queryStringBuilder.append("m.category = :category ");
@@ -78,7 +84,7 @@ public class SearchMovieManager
 	queryStringBuilder.append(" order by m.title");
 	String stringQuery = queryStringBuilder.toString();
 
-	if (!isTitle && !isCountry && !isCategory)
+	if (!isTitle && !isCountry && !isCategory && !isYear)
 	{
 	    stringQuery = stringQuery.replace("where", "");
 	}
@@ -100,9 +106,15 @@ public class SearchMovieManager
 	{
 	    query.setParameter("category", searchParameters.get(MovieAttribute.CATEGORY));
 	}
+	if (isYear)
+	{
+	    int year = Integer.parseInt(searchParameters.get(MovieAttribute.YEAR));
+	    query.setParameter("year", year);
+	}
 	isTitle = false;
 	isCountry = false;
 	isCategory = false;
+	isYear = false;
     }
 
     private boolean isSearchParameterCorrect(String parameter)

@@ -25,6 +25,7 @@ public class MovieDBTest
     protected final String MOVIE_TITLE = "title";
     protected final String MOVIE_COUNTRY = "PL";
     protected final String MOVIE_CATEGORY = "action";
+    protected final int MOVIE_YEAR = 2000;
 
     @Before
     public void setup()
@@ -79,6 +80,7 @@ public class MovieDBTest
 	movie.setTitle(MOVIE_TITLE);
 	Category category = categoryManager.getCategoryByName(MOVIE_CATEGORY);
 	movie.setCategory(category);
+	movie.setYear(MOVIE_YEAR);
 
 	entityManager.persist(movie);
 	return movie.getMovieID();
@@ -104,9 +106,10 @@ public class MovieDBTest
 	Map<MovieAttribute, String> movieAttributeStringMap = new HashMap<>();
 	movieAttributeStringMap.put(MovieAttribute.TITLE, MOVIE_TITLE);
 	movieAttributeStringMap.put(MovieAttribute.CATEGORY, MOVIE_CATEGORY);
+	movieAttributeStringMap.put(MovieAttribute.YEAR, Integer.toString(MOVIE_YEAR));
 
 	List<Movie> movies = movieManager.getMovies(movieAttributeStringMap, 0, 10);
-	assertTrue(movies.size() >= 0);
+	assertTrue(movies.size() > 0);
 
 	Movie movie = entityManager.find(Movie.class, movieID);
 	entityManager.remove(movie);
