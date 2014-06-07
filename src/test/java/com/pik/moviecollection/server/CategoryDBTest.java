@@ -20,6 +20,7 @@ public class CategoryDBTest
 {
     private EntityManager entityManager;
     private CategoryManager categoryManager;
+    private final String CATEGORY_NAME = "unique category name";
 
     @Before
     public void setup()
@@ -38,7 +39,7 @@ public class CategoryDBTest
     public void getCategoriesTest()
     {
 	Category category  = addTestCategoryToDatabase();
-	String categoryID = category.getCategoryID();
+	String categoryID = category.getName();
 
 	List<Category> categories = categoryManager.getCategories();
 	assertTrue(categories.size() > 0);
@@ -54,7 +55,7 @@ public class CategoryDBTest
 	String categoryName = category.getName();
 
 	Category categoryFromManager = categoryManager.getCategoryByName(categoryName);
-	assertEquals(category.getCategoryID(), categoryFromManager.getCategoryID());
+	assertEquals(category.getName(), categoryFromManager.getName());
 
 	entityManager.remove(category);
     }
@@ -62,7 +63,7 @@ public class CategoryDBTest
     private Category addTestCategoryToDatabase()
     {
 	Category category = new Category();
-	category.setName("unique category");
+	category.setName(CATEGORY_NAME);
 
 	entityManager.persist(category);
 	return category;
@@ -72,7 +73,7 @@ public class CategoryDBTest
     public void canDeleteCategory()
     {
 	Category category  = addTestCategoryToDatabase();
-	String categoryID = category.getCategoryID();
+	String categoryID = category.getName();
 
 	categoryManager.deleteCategory(categoryID);
 	category = entityManager.find(Category.class, categoryID);
@@ -95,7 +96,7 @@ public class CategoryDBTest
     private Category prepareDataToInsert()
     {
 	Category category = new Category();
-	category.setName("akcja");
+	category.setName(CATEGORY_NAME);
 
 	return category;
     }
