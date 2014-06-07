@@ -105,7 +105,6 @@ public class MovieDBTest
 	String movieID = addTestMovieToDatabase();
 	Map<MovieAttribute, String> movieAttributeStringMap = new HashMap<>();
 	movieAttributeStringMap.put(MovieAttribute.TITLE, MOVIE_TITLE);
-	movieAttributeStringMap.put(MovieAttribute.CATEGORY, MOVIE_CATEGORY);
 	movieAttributeStringMap.put(MovieAttribute.YEAR, Integer.toString(MOVIE_YEAR));
 
 	List<Movie> movies = movieManager.getMovies(movieAttributeStringMap, 0, 10);
