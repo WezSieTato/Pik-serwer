@@ -1,6 +1,7 @@
 package com.pik.moviecollection.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Robert on 2014-05-31.
@@ -11,10 +12,6 @@ import javax.persistence.*;
 public class Category
 {
     @Id
-    @GeneratedValue (strategy=GenerationType.AUTO)
-    @Column(name = "CATEGORY_ID")
-    private String categoryID;
-
     @Column(name = "NAME")
     private String name;
 
@@ -26,10 +23,5 @@ public class Category
     public void setName(String name)
     {
 	this.name = name;
-    }
-
-    public String getCategoryID()
-    {
-	return categoryID;
     }
 }
