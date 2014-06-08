@@ -29,7 +29,7 @@ public class LoginController {
         return  token;
     }
 
-    @RequestMapping(value= "/add/{login}", method = RequestMethod.GET)
+    @RequestMapping(value= "/add/{login}", method = RequestMethod.POST)
     public String addUser( @PathVariable String login,
                                  @RequestParam(value="password", required=true) String password)
     {
