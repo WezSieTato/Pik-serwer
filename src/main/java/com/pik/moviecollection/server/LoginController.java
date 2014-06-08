@@ -1,14 +1,12 @@
 package com.pik.moviecollection.server;
 
 import com.pik.moviecollection.model.datamanagement.*;
-import com.pik.moviecollection.model.entity.Category;
-import com.pik.moviecollection.model.entity.Movie;
+import com.pik.moviecollection.model.entity.User;
+import com.pik.moviecollection.model.result.data.LoginResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by marcin stepnowski on 03.06.14.
@@ -19,11 +17,28 @@ import java.util.List;
 @ResponseStatus(HttpStatus.OK)
 public class LoginController {
 
-    @RequestMapping(value= "/{login}", method = RequestMethod.GET)
+    @RequestMapping(value= "/{login}", method = RequestMethod.POST)
     public String loginToServer( @PathVariable String login,
                          @RequestParam(value="password", required=true) String password)
     {
-        return  login + password;
+        LoginResult result = LoginDAO.loginUser(login, password);
+        if (result == null)
+            return "";
+        String token = result.getToken().getCode();
+        SessionManager.setToken(token);
+        return  token;
+    }
+
+    @RequestMapping(value= "/add/{login}", method = RequestMethod.POST)
+    public String addUser( @PathVariable String login,
+                                 @RequestParam(value="password", required=true) String password)
+    {
+        User user = new User(login, login, login, password);
+        EntityManager em = EntityConnection.getConnection();
+        em.persist(user);
+        EntityConnection.closeConnection();
+        return "Dodano usera";
+
     }
 
     @RequestMapping(value= "/logoff", method = RequestMethod.GET)
@@ -34,8 +49,7 @@ public class LoginController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String getTest() {
-        return "siema";
-        //return new ResponseEntity<String>("{value: " + result + "}", HttpStatus.OK);
+        return SessionManager.getToken();
     }
 
 }
