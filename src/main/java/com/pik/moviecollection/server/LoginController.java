@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 @ResponseStatus(HttpStatus.OK)
 public class LoginController {
 
-    @RequestMapping(value= "/{login}", method = RequestMethod.GET)
+    @RequestMapping(value= "/{login}", method = RequestMethod.POST)
     public String loginToServer( @PathVariable String login,
                          @RequestParam(value="password", required=true) String password)
     {
