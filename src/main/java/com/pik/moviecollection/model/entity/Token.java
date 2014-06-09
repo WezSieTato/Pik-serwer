@@ -16,13 +16,12 @@ public class Token {
     @Column(name = "CODE")
     private String code;
 
-    @OneToOne
-    @JoinColumn(name="USER_ID")
-    private User user;
+    @Column(name="USER_ID")
+    private String userID;
 
     public Token(String code, User user) {
         this.code = code;
-        this.user = user;
+        this.userID = user.getUserID();
     }
 
     public Token() {
@@ -44,11 +43,11 @@ public class Token {
         this.code = code;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
