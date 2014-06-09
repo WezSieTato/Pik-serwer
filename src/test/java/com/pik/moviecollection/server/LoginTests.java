@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.EntityManager;
 
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
@@ -80,7 +81,7 @@ public class LoginTests {
         LoginResult result = data.loginUser(WRONG_DATA, WRONG_DATA);
         Assert.isNull(result);
     }
-
+    /*
     @Test
     public void validateValidTokenTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
@@ -92,13 +93,19 @@ public class LoginTests {
         Token token = new Token(WRONG_DATA, testUser);
         Assert.isTrue(!data.validateUser(token));
     }
-
-    /*
+    */
     @Test
     public void logoutValidUserTest() {
+        LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
+        if (result == null) fail();
         Assert.isTrue(data.logoutUser(testUser));
+        //deleteToken(result.getToken());asdfasdf
     }
-    */
+
+    @Test
+    public void logoutNotValidUserTest() {
+        Assert.isTrue(!data.logoutUser(testUser));
+    }
 
     private User createValidUser() {
         User user = new User(USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASS);
