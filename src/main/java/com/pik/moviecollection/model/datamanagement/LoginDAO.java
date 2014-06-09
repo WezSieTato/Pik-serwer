@@ -45,10 +45,10 @@ public class LoginDAO {
 
     public static boolean validateUser(Token token) {
         EntityManager em = conn.getConnection();
-        String queryString = "SELECT t FROM Token t WHERE t.code = :code";
+        String queryString = "SELECT t FROM Token t WHERE t.code = :code and t.userID = :user";
         Query query = em.createQuery(queryString);
         query.setParameter("code", token.getCode());
-        //query.setParameter("id", token.getUser().getUserID());
+        query.setParameter("user", token.getUserID());
         List<Token> items = query.getResultList();
         if (items.isEmpty()) return false;
         return true;
@@ -74,10 +74,10 @@ public class LoginDAO {
         return false;
     }
 
-
     private static String generateToken(String id) {
         return "SUPER_SECRET_TOKEN";
     }
+
 
 
 
