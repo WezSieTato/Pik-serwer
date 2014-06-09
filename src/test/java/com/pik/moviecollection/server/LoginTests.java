@@ -81,25 +81,41 @@ public class LoginTests {
         LoginResult result = data.loginUser(WRONG_DATA, WRONG_DATA);
         Assert.isNull(result);
     }
-    /*
+
     @Test
-    public void validateValidTokenTest() {
+    public void validateUserValidTokenTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
         Assert.isTrue(data.validateUser(result.getToken()));
+        deleteToken(result.getToken());
     }
 
     @Test
-    public void validateNotValidTokenTest() {
+    public void validateUserFakeTokenTest() {
         Token token = new Token(WRONG_DATA, testUser);
         Assert.isTrue(!data.validateUser(token));
     }
-    */
+
+    @Test
+    public void validateUserFakeUserTest() {
+        LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
+        Token token = new Token(result.getToken().getCode(), new User(WRONG_DATA, WRONG_DATA, WRONG_DATA, WRONG_DATA));
+        token.setUserID(WRONG_DATA);
+        Assert.isTrue(!data.validateUser(token));
+        deleteToken(result.getToken());
+    }
+
+    @Test
+    public void validateUserFakeUserFakeTokenTest() {
+        Token token = new Token(WRONG_DATA, new User(WRONG_DATA, WRONG_DATA, WRONG_DATA, WRONG_DATA));
+        token.setUserID(WRONG_DATA);
+        Assert.isTrue(!data.validateUser(token));
+    }
+
     @Test
     public void logoutValidUserTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
         if (result == null) fail();
         Assert.isTrue(data.logoutUser(testUser));
-        //deleteToken(result.getToken());asdfasdf
     }
 
     @Test
