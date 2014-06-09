@@ -36,12 +36,8 @@ public class LoginDAO {
         User result = (User)items.get(0);
         result.setPass("");
 
-
         Token token = new Token(generateToken(result.getUserID()), result);
         em.persist(token);
-
-        //System.out.println("u id: " + result.getUserID());
-        //System.out.println("token id: " + token.getTokenID() + " user from token " + token.getUser().getUserID());
 
         conn.closeConnection();
         return new LoginResult(result, token);
@@ -58,18 +54,26 @@ public class LoginDAO {
         return true;
     }
 
-    /*
     public static boolean logoutUser(User user) {
         EntityManager em = conn.getConnection();
-        String queryString = "SELECT t FROM Token t WHERE t.user.userID = :id";
+        String queryString = "SELECT t FROM Token t WHERE t.userID = :id";
         Query query = em.createQuery(queryString);
         query.setParameter("id", user.getUserID());
         List<Token> items = query.getResultList();
+
+        if (!items.isEmpty()) {
+            String deleteString = "DELETE FROM Token t WHERE t.userID = :id";
+            Query deleteQuery = em.createQuery(deleteString);
+            deleteQuery.setParameter("id", user.getUserID());
+            deleteQuery.executeUpdate();
+            conn.closeConnection();
+            return true;
+        }
+
         conn.closeConnection();
-        if (items.isEmpty()) return false;
-        return true;
+        return false;
     }
-    */
+
 
     private static String generateToken(String id) {
         return "SUPER_SECRET_TOKEN";
