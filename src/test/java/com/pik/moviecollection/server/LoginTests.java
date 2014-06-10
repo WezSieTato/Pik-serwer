@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.EntityManager;
 
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
@@ -82,23 +83,45 @@ public class LoginTests {
     }
 
     @Test
-    public void validateValidTokenTest() {
+    public void validateUserValidTokenTest() {
         LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
         Assert.isTrue(data.validateUser(result.getToken()));
+        deleteToken(result.getToken());
     }
 
     @Test
-    public void validateNotValidTokenTest() {
+    public void validateUserFakeTokenTest() {
         Token token = new Token(WRONG_DATA, testUser);
         Assert.isTrue(!data.validateUser(token));
     }
 
-    /*
+    @Test
+    public void validateUserFakeUserTest() {
+        LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
+        Token token = new Token(result.getToken().getCode(), new User(WRONG_DATA, WRONG_DATA, WRONG_DATA, WRONG_DATA));
+        token.setUserID(WRONG_DATA);
+        Assert.isTrue(!data.validateUser(token));
+        deleteToken(result.getToken());
+    }
+
+    @Test
+    public void validateUserFakeUserFakeTokenTest() {
+        Token token = new Token(WRONG_DATA, new User(WRONG_DATA, WRONG_DATA, WRONG_DATA, WRONG_DATA));
+        token.setUserID(WRONG_DATA);
+        Assert.isTrue(!data.validateUser(token));
+    }
+
     @Test
     public void logoutValidUserTest() {
+        LoginResult result = data.loginUser(testUser.getLogin(), testUser.getPass());
+        if (result == null) fail();
         Assert.isTrue(data.logoutUser(testUser));
     }
-    */
+
+    @Test
+    public void logoutNotValidUserTest() {
+        Assert.isTrue(!data.logoutUser(testUser));
+    }
 
     private User createValidUser() {
         User user = new User(USER_NAME, USER_SURNAME, USER_LOGIN, USER_PASS);
