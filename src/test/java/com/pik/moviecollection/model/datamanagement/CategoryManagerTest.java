@@ -1,8 +1,5 @@
-package com.pik.moviecollection.server;
+package com.pik.moviecollection.model.datamanagement;
 
-import com.pik.moviecollection.model.datamanagement.CategoryManager;
-import com.pik.moviecollection.model.datamanagement.CategoryManagerImpl;
-import com.pik.moviecollection.model.datamanagement.EntityConnection;
 import com.pik.moviecollection.model.entity.Category;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +13,7 @@ import static junit.framework.Assert.*;
 /**
  * Created by Robert on 2014-05-31.
  */
-public class CategoryDBTest
+public class CategoryManagerTest
 {
     private EntityManager entityManager;
     private CategoryManager categoryManager;
