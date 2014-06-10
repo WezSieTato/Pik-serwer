@@ -44,10 +44,13 @@ public class LoginController {
     @RequestMapping(value= "/logoff", method = RequestMethod.GET)
     public String logoffFromServer()
     {
-        return  "Wylogowano! Dziekujemy do widzenia!";
+//        User user = LoginDAO.getUser(SessionManager.getToken());
+//        LoginDAO.logoutUser(user);
+        SessionManager.setToken("");
+        return  "Wylogowano"; //user.getUserID().toString();
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/testToken", method = RequestMethod.GET)
     public String getTest() {
         return SessionManager.getToken();
     }
