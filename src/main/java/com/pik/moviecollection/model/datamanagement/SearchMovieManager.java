@@ -49,39 +49,39 @@ public class SearchMovieManager
 	return query.getResultList();
     }
 
-    private String getFilteredSearchQueryString(Map<MovieAttribute, String> searchParameters)
+    public String getFilteredSearchQueryString(Map<MovieAttribute, String> searchParameters)
     {
-	StringBuilder queryStringBuilder = new StringBuilder("select m from Movie m where ");
+	StringBuilder queryStringBuilder = new StringBuilder("select m from Movie m where");
 
 	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.TITLE)))
 	{
-	    queryStringBuilder.append("m.title = :title and ");
+	    queryStringBuilder.append(" m.title = :title and");
 	    isTitle = true;
 	}
 	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.COUNTRY)))
 	{
-	    queryStringBuilder.append("m.country = :country and ");
+	    queryStringBuilder.append(" m.country = :country and");
 	    isCountry = true;
 	}
 	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.YEAR)))
 	{
-	    queryStringBuilder.append("m.year = :year and ");
+	    queryStringBuilder.append(" m.year = :year and");
 	    isYear = true;
 	}
 	if (isSearchParameterCorrect(searchParameters.get(MovieAttribute.CATEGORY)))
 	{
-	    queryStringBuilder.append("m.category = :category ");
+	    queryStringBuilder.append(" m.category = :category ");
 	    isCategory = true;
 	}
 
 	int queryLength = queryStringBuilder.length();
-	String substring = queryStringBuilder.substring(queryLength - 4, queryLength - 1);
+	String substring = queryStringBuilder.substring(queryLength - 3, queryLength);
 	if (substring.equals("and"))
 	{
-	    queryStringBuilder.replace(queryLength - 4, queryLength - 1, "");
+	    queryStringBuilder.replace(queryLength - 3, queryLength, "");
 	}
 
-	queryStringBuilder.append(" order by m.title");
+	queryStringBuilder.append("order by m.title");
 	String stringQuery = queryStringBuilder.toString();
 
 	if (!isTitle && !isCountry && !isCategory && !isYear)
