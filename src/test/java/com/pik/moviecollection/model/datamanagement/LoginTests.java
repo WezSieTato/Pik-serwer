@@ -1,7 +1,5 @@
-package com.pik.moviecollection.server;
+package com.pik.moviecollection.model.datamanagement;
 
-import com.pik.moviecollection.model.datamanagement.EntityConnection;
-import com.pik.moviecollection.model.datamanagement.LoginDAO;
 import com.pik.moviecollection.model.entity.Token;
 import com.pik.moviecollection.model.entity.User;
 import com.pik.moviecollection.model.result.data.LoginResult;
