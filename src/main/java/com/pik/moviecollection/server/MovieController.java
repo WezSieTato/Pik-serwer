@@ -34,6 +34,8 @@ public class MovieController {
             return "{ \"error\" }";
         }
 
+        String id = "";
+
         if (m != null) {
             EntityManager connection = EntityConnection.getConnection();
             MovieManager movieManager = new MovieManagerImpl(connection);
@@ -44,12 +46,12 @@ public class MovieController {
             if (category == null)
                 categoryManager.addCategory(m.getCategory());
 
-            movieManager.addMovie(m);
+            id = movieManager.addMovie(m);
 
             EntityConnection.closeConnection();
         }
 
-        return "{ \"ok\" }";
+        return "{ \"" + id + "\" }";
     }
 
 }
