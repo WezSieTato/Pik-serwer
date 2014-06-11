@@ -14,11 +14,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import javax.persistence.EntityManager;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -61,7 +60,7 @@ public class APITests {
         try {
             mockMvc.perform(post("/movies/add").param("data", "{\"badtitle\" : \"s\"}"))
                     .andExpect(status().isOk())
-                    .andExpect(content().string("{ \"error\" }"));
+                    .andExpect(content().string("{ \"status\": \"error\" }"));
 
 
         } catch (Exception e) {
@@ -86,6 +85,8 @@ public class APITests {
 
             assertEquals(1, wynik.size());
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     private String addTestMovie() {
@@ -111,7 +112,7 @@ public class APITests {
         try {
             mockMvc.perform(get("/movies/remove/" + id))
                     .andExpect(status().isOk())
-                    .andExpect(content().string("{ \"ok\" }"));
+                    .andExpect(content().string("{ \"status\": \"ok\" }"));
         } catch (Exception e) {
             e.printStackTrace();
         }
