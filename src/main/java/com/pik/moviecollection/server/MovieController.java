@@ -54,4 +54,22 @@ public class MovieController {
         return "{ \"" + id + "\" }";
     }
 
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
+    public String usunFilm(@PathVariable String id) {
+
+        boolean result = false;
+
+        if (id != "") {
+
+            EntityManager connection = EntityConnection.getConnection();
+            MovieManager manager = new MovieManagerImpl(connection);
+
+            result = manager.deleteMovie(id);
+
+        }
+
+        return result ? "{ \"ok\" }" : "{ \"error\" }";
+
+    }
+
 }
