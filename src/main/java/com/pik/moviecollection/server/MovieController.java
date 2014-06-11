@@ -1,5 +1,6 @@
 package com.pik.moviecollection.server;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pik.moviecollection.model.datamanagement.*;
 import com.pik.moviecollection.model.entity.Category;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -52,6 +54,25 @@ public class MovieController {
         }
 
         return "{ \"" + id + "\" }";
+    }
+
+    @RequestMapping(value = "/list/{start}/{ilosc}", method = RequestMethod.GET)
+    public String listujFilmy(@PathVariable int start, @PathVariable int ilosc) {
+
+        EntityManager connection = EntityConnection.getConnection();
+        MovieManager movieManager = new MovieManagerImpl(connection);
+
+        List<Movie> movies = movieManager.getMovies(start, ilosc);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(movies);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return "{ \"error\" }";
     }
 
 }

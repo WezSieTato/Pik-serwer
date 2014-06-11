@@ -1,5 +1,7 @@
 package com.pik.moviecollection.server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pik.moviecollection.model.entity.Movie;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,6 +64,29 @@ public class APITests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void listMovies() {
+
+        try {
+
+            MvcResult data = mockMvc.perform(get("/movies/list/1/1"))
+                                    .andExpect(status().isOk())
+                                    .andReturn();
+
+            String json = data.getResponse().getContentAsString();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            List<Movie> wynik = mapper.readValue(json, List.class);
+
+            assertEquals(1, wynik.size());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
