@@ -8,6 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
+import com.firebase.security.token.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by piotr on 26.05.14.
  */
@@ -75,12 +79,16 @@ public class LoginDAO {
     }
 
     private static String generateToken(String id) {
-//        TokenGenerator tokenGenerator;
-        return "SUPER_SECRET_TOKEN";
+        TokenGenerator tokenGenerator = new TokenGenerator("supersecretkey");
+        JSONObject arbitrary = new JSONObject();
+        try {
+            arbitrary.put("some", "arbitrary");
+            arbitrary.put("data", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tokenGenerator.createToken(arbitrary);
     }
-
-
-
 
 
 }
