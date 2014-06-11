@@ -3,6 +3,7 @@ package com.pik.moviecollection.server;
 import com.pik.moviecollection.model.datamanagement.*;
 import com.pik.moviecollection.model.entity.User;
 import com.pik.moviecollection.model.result.data.LoginResult;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,6 @@ public class LoginController {
         em.persist(user);
         EntityConnection.closeConnection();
         return "Dodano usera";
-
     }
 
     @RequestMapping(value= "/logoff", method = RequestMethod.GET)
@@ -52,6 +52,8 @@ public class LoginController {
 
     @RequestMapping(value = "/testToken", method = RequestMethod.GET)
     public String getTest() {
+
+
         return SessionManager.getToken();
     }
 

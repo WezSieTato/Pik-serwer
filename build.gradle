@@ -28,7 +28,7 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '4.3.4.Final'
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.2.3'
-
+    compile group: 'com.firebase', name: 'firebase-token-generator', version:  '1.0.4'
 
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.0.0.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.8.2'
