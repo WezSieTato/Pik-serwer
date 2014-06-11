@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 @ResponseStatus(HttpStatus.OK)
 public class LoginController {
 
-    @RequestMapping(value= "/{login}", method = RequestMethod.POST)
+    @RequestMapping(value= "/log/{login}", method = RequestMethod.POST)
     public String loginToServer( @PathVariable String login,
                          @RequestParam(value="password", required=true) String password)
     {
@@ -38,7 +38,7 @@ public class LoginController {
         EntityManager em = EntityConnection.getConnection();
         em.persist(user);
         EntityConnection.closeConnection();
-        return "Dodano usera";
+        return "";
     }
 
     @RequestMapping(value= "/logoff", method = RequestMethod.GET)
@@ -47,14 +47,14 @@ public class LoginController {
 //        User user = LoginDAO.getUser(SessionManager.getToken());
 //        LoginDAO.logoutUser(user);
         SessionManager.setToken("");
-        return  "Wylogowano"; //user.getUserID().toString();
+        return  ""; //user.getUserID().toString();
     }
 
-    @RequestMapping(value = "/testToken", method = RequestMethod.GET)
-    public String getTest() {
-
-
-        return SessionManager.getToken();
-    }
+//    @RequestMapping(value = "/testToken", method = RequestMethod.GET)
+//    public String getTest() {
+//
+//
+//        return SessionManager.getToken();
+//    }
 
 }
