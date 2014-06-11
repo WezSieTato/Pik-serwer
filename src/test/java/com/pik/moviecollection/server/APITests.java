@@ -1,5 +1,7 @@
 package com.pik.moviecollection.server;
 
+import com.pik.moviecollection.model.datamanagement.*;
+import com.pik.moviecollection.model.entity.Movie;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.persistence.EntityManager;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,6 +64,38 @@ public class APITests {
             e.printStackTrace();
         }
     }
+
+    private String addTestMovie() {
+
+        Movie m = new Movie();
+
+        m.setTitle("TestTytul");
+        m.setCountry("Polska");
+        m.setYear(2003);
+
+        EntityManager connection = EntityConnection.getConnection();
+        MovieManager movieManager = new MovieManagerImpl(connection);
+        CategoryManager categoryManager = new CategoryManagerImpl(connection);
+
+        return movieManager.addMovie(m);
+    }
+
+    @Test
+    public void addAndRemoveTest() {
+
+        String id = addTestMovie();
+
+        try {
+            mockMvc.perform(get("/movies/remove/" + id))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("{ \"ok\" }"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
 }
