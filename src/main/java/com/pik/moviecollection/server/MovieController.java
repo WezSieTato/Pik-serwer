@@ -33,7 +33,7 @@ public class MovieController {
 
             e.printStackTrace();
 
-            return "{ \"error\" }";
+            return "{ \"status\": \"error\" }";
         }
 
         String id = "";
@@ -53,7 +53,7 @@ public class MovieController {
             EntityConnection.closeConnection();
         }
 
-        return "{ \"" + id + "\" }";
+        return "{ \"movieID\": \"" + id + "\" }";
     }
 
     @RequestMapping(value = "/list/{start}/{ilosc}", method = RequestMethod.GET)
@@ -72,7 +72,7 @@ public class MovieController {
             e.printStackTrace();
         }
 
-        return "{ \"error\" }";
+        return "{ \"status\": \"error\" }";
     }
     
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
@@ -89,7 +89,7 @@ public class MovieController {
 
         }
 
-        return result ? "{ \"ok\" }" : "{ \"error\" }";
+        return result ? "{ \"status\": \"ok\" }" : "{ \"status\": \"error\" }";
 
 
     }
