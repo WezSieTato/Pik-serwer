@@ -75,6 +75,7 @@ public class LoginDAO {
     }
 
     private static String generateToken(String id) {
+//        TokenGenerator tokenGenerator;
         return "SUPER_SECRET_TOKEN";
     }
 
